@@ -205,3 +205,85 @@ form .links a {
 .register-button:hover {
   background-color: #0056b3; /* Couleur bleu foncé au survol */
 }
+/* Style pour le formulaire de connexion */
+.glass-form-container {
+  background: rgba(255, 255, 255, 0.2); /* Effet verre */
+  backdrop-filter: blur(10px); /* Flou d'arrière-plan */
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 50px auto;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.glass-form-container h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.glass-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.glass-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f1f1f1;
+}
+
+.glass-form button {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #6e7cfc, #8e9eff); /* Dégradé bleu */
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.glass-form button:hover {
+  background: linear-gradient(135deg, #5a6cf9, #6c79ff); /* Survol plus foncé */
+  transform: translateY(-3px); /* Effet de survol */
+}
+
+.glass-links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.glass-links a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.glass-links a:hover {
+  text-decoration: underline;
+}
+
+/* Style du footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer p {
+  color: #333;
+  font-size: 14px;
+}
+
