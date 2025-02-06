@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #87CEEB; /* Ciel bleu */
+    transition: background 0.5s ease-in-out;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: url('background1.png') no-repeat center center/cover; /* Première scène */
+}
+
+#character {
+    width: 100px;               /* Largeur du personnage */
+    height: 100px;              /* Hauteur du personnage */
+    background-image: url('images/ANL_prefab10.png'); /* Image du personnage */
+    background-size: 300px 400px;
+    background-position: 200px 0px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.walk-up {
+    background-position: 200px 100px;
+}
+.transition-zone {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background: green; /* Rendu plus réaliste */
+    border: 2px solid black;
+}
+
+/* Position des zones */
+#zone1 { left: 10%; top: 50%; }
+#zone2 { right: 10%; top: 50%; }
+
+/* Bulle d'interaction */
+#interaction-bubble {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+
+#form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+form input {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button[type="button"] {
+    background-color: #f44336;
+}
