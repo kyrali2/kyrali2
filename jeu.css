@@ -11,6 +11,27 @@ body {
     position: relative;
     background: url('background1.png') no-repeat center center/cover; /* Première scène */
 }
+#question-zone {
+    width: 500px;               /* Largeur du demi-cercle */
+    height: 500px;               /* Hauteur de la moitié du cercle */
+    background-color: red;      /* Couleur de fond rouge */
+    border-radius: 50% 50% 50% 50%; /* Arrondir les coins supérieurs pour créer un demi-cercle */
+    position: absolute; 
+    left: 50%;
+    top: -50%;       
+    transform: translateX(-50%); /* Centrer horizontalement */
+}
+
+#exp-zone {
+    width: 500px;               /* Largeur du demi-cercle */
+    height: 500px;               /* Hauteur de la moitié du cercle */
+    background-color: black;      /* Couleur de fond rouge */
+    border-radius: 50% 50% 50% 50%; /* Arrondir les coins supérieurs pour créer un demi-cercle */
+    position: absolute; 
+    left: 50%;
+    top: 75%;       
+    transform: translateX(-50%); /* Centrer horizontalement */
+}
 
 #character {
     width: 100px;               /* Largeur du personnage */
@@ -30,8 +51,9 @@ body {
     width: 100px;
     height: 100px;
     position: absolute;
-    background: green; /* Rendu plus réaliste */
-    border: 2px solid black;
+    background-image : url('images/ANL_Bot1.png');
+    background-size: 300px 400px;
+    background-position: 200px 0px;
 }
 
 /* Position des zones */
@@ -39,7 +61,30 @@ body {
 #zone2 { right: 10%; top: 50%; }
 
 /* Bulle d'interaction */
-#interaction-bubble {
+#interaction-bubble-ent {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+
+#interaction-bubble-exp {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+#interaction-bubble-question {
     position: absolute;
     top: 10%;
     left: 50%;
@@ -61,7 +106,40 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+#form-container-question {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#text-question {
+    font-size: 30px;
+    position: absolute;
+    color: black;
+    top : 5%;
+    left : 42%;
+}
+#text-exp {
+    font-size: 30px;
+    position: absolute;
+    color: white;
+    top : 95%;
+    left : 42%;
+}
+#form-container-exp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 form {
     display: flex;
     flex-direction: column;
