@@ -237,7 +237,7 @@ function fetchRandomQuestion() {
             question.choix.forEach((option) => {
                 const button = document.createElement("button");
                 button.textContent = option;
-                button.addEventListener("click", () => checkAnswer(option, question.reponseCorrecte));
+                //button.addEventListener("click", () => checkAnswer(option, question.reponseCorrecte));
                 optionsContainer.appendChild(button);
             });
 
@@ -254,13 +254,12 @@ function fetchRandomQuestion() {
     // Vérifier la réponse
     function checkAnswer(selected, correct) {
         clearInterval(timer);
-
         if (selected === correct) {
-            feedbackElement.textContent = "✅ Bonne réponse ! 🎉";
-            encouragementElement.textContent = "Bravo, continue comme ça ! 💪";
+            alert("✅ Bonne réponse ! 🎉");
+            //alert("Bravo, continue comme ça ! 💪");
         } else {
-            feedbackElement.textContent = "❌ Mauvaise réponse... Essayez encore ! 🙁";
-            encouragementElement.textContent = "Ne te décourage pas, tu peux réussir ! 🌟";
+            alert("❌ Mauvaise réponse... Essayez encore ! 🙁");
+            //encouragementElement.textContent = "Ne te décourage pas, tu peux réussir ! 🌟";
         }
 
         nextButton.disabled = false;

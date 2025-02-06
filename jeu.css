@@ -169,3 +169,27 @@ form button {
 form button[type="button"] {
     background-color: #f44336;
 }
+
+#answers {
+    margin: 20px 0;
+}
+
+.answer-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.answer-btn:hover {
+    background-color: #45a049;
+}
+
+.answer-btn.selected {
+    background-color: #3e8e41; /* Couleur différente quand la réponse est sélectionnée */
+}
