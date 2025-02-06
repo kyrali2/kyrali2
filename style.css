@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+header nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+header .cta-button {
+  background-color: #FF6347;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.main-content {
+  padding: 50px 10%;
+}
+
+.hero {
+  text-align: center;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.buttons button {
+  padding: 15px 30px;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Style commun pour tous les boutons */
+.buttons a {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px; /* Bordures arrondies */
+  font-weight: bold;
+  transition: all 0.3s ease; /* Transition douce pour les effets */
+  color: white;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #6e7cfc, #8e9eff); /* Dégradé bleu */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-button {
+  background: linear-gradient(135deg, #ff6f61, #ff907d); /* Dégradé rouge */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet de survol */
+.primary-button:hover, .secondary-button:hover {
+  transform: translateY(-3px); /* Légère remontée */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Effet de focus pour l'accessibilité */
+.primary-button:focus, .secondary-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #6e7cfc; /* Focus avec une bordure lumineuse */
+}
+
+/* Style des boutons au survol */
+.primary-button:active, .secondary-button:active {
+  transform: translateY(2px); /* Légère pression lors du clic */
+}
+
+
+.levels {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.levels h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.level-card {
+  display: inline-block;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 15px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.level-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.level-card p {
+  font-size: 16px;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+form {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input, form select, form button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #FF6347;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+form .links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+form .links a {
+  color: #FF6347;
+  text-decoration: none;
+}
+.register-button {
+  padding: 15px 30px;
+  font-size: 16px;
+  background-color: #007BFF; /* Couleur bleu */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #0056b3; /* Couleur bleu foncé au survol */
+}

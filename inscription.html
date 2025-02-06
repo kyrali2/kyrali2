@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - MonApp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">MonApp</div>
+    <nav>
+      <a href="accueil.html">Accueil</a>
+      <a href="#">À propos</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="form-container">
+      <h1>Inscription</h1>
+      
+      <form class="signup-form">
+        <label for="role">Vous êtes :</label>
+        <select id="role" onchange="toggleFields()" required>
+          <option value="candidat">Candidat</option>
+          <option value="entreprise">Entreprise</option>
+        </select>
+
+        <div id="candidat-fields">
+          <label for="firstname">Prénom :</label>
+          <input type="text" id="firstname" required>
+
+          <label for="lastname">Nom :</label>
+          <input type="text" id="lastname" required>
+
+          <label for="email">Email :</label>
+          <input type="email" id="email" required>
+
+          <label for="phone">Téléphone :</label>
+          <input type="tel" id="phone" required>
+
+          <label for="education">Niveau d'étude :</label>
+          <input type="text" id="education" required>
+
+          <label for="field">Domaine d'étude :</label>
+          <select id="field" required>
+            <option value="medecine">Médecine</option>
+            <option value="informatique">Informatique</option>
+            <option value="droit">Droit</option>
+          </select>
+
+          <label for="contractType">Type de contrat :</label>
+          <select id="contractType" required>
+            <option value="CDI">CDI</option>
+            <option value="CDD">CDD</option>
+            <option value="Stage">Stage</option>
+            <option value="Alternance">Alternance</option>
+            <option value="Bénévolat">Bénévolat</option>
+          </select>
+        </div>
+
+        <div id="entreprise-fields" style="display: none;">
+          <label for="companyName">Nom de l'entreprise :</label>
+          <input type="text" id="companyName">
+
+          <label for="siret">Numéro de SIRET :</label>
+          <input type="text" id="siret">
+
+          <label for="companyEmail">Email :</label>
+          <input type="email" id="companyEmail">
+
+          <label for="companyPhone">Téléphone :</label>
+          <input type="tel" id="companyPhone">
+
+          <label for="sector">Secteur d'activité :</label>
+          <input type="text" id="sector">
+
+          <label for="employees">Nombre de salariés :</label>
+          <input type="number" id="employees">
+        </div>
+
+        <button type="submit">S'inscrire</button>
+      </form>
+
+      <div class="links">
+        <a href="accueil.html">Retour à l'accueil</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© JamR 2025 MonApp. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const role = urlParams.get('role'); // Récupère le paramètre 'role' de l'URL
+      
+      if (role === "candidat") {
+        document.getElementById("role").value = "candidat"; // Option Candidat sélectionnée
+        toggleFields(); // Affiche les champs candidats
+      } else if (role === "entreprise") {
+        document.getElementById("role").value = "entreprise"; // Option Entreprise sélectionnée
+        toggleFields(); // Affiche les champs entreprises
+      }
+    };
+  
+    function toggleFields() {
+      let role = document.getElementById("role").value;
+      let candidatFields = document.getElementById("candidat-fields");
+      let entrepriseFields = document.getElementById("entreprise-fields");
+  
+      if (role === "candidat") {
+        candidatFields.style.display = "block";
+        entrepriseFields.style.display = "none";
+      } else {
+        candidatFields.style.display = "none";
+        entrepriseFields.style.display = "block";
+      }
+    }
+  </script>
+  
+
+</body>
+</html>
