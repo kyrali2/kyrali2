@@ -20,7 +20,6 @@ let isMoving = false; // Indicateur pour savoir si on est en mouvement
 
 document.addEventListener("keydown", (event) => {
     console.log(`Position initiale: X: ${posX}, Y: ${posY}`);
-    
     if (event.key === "i" && canInteract) {
         toggleForm(); // Ouvre/ferme le formulaire si on peut interagir
         return; // Ne pas traiter d'autres événements si on interagit
@@ -203,3 +202,91 @@ function fetchRandomQuestion() {
             console.error("Erreur lors de la récupération de la question:", error);
         });
 }
+/**/
+    const questionElement = document.getElementById("question");
+    const optionsContainer = document.querySelector(".options");
+    const nextButton = document.getElementById("next-btn");
+    const feedbackElement = document.getElementById("feedback");
+    const timerElement = document.getElementById("time-left");
+    const encouragementElement = document.getElementById("encouragement");
+
+    let timeLeft = 15;
+    let timer;
+    let currentQuestionIndex = 0;
+    let questions = []; // Questions récupérées depuis le serveur
+
+    // Charger les questions depuis le serveur
+    function loadQuestions() {
+        fetch("get_questions.php")
+            .then((response) => response.json())
+            .then((data) => {
+                questions = data;
+                showQuestion();
+            })
+            .catch((error) => console.error("Erreur lors du chargement des questions :", error));
+        console.log("Salut");
+        }
+
+    // Afficher une question
+    function showQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            const question = questions[currentQuestionIndex];
+            questionElement.textContent = question.question;
+            optionsContainer.innerHTML = "";
+
+            question.choix.forEach((option) => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.addEventListener("click", () => checkAnswer(option, question.reponseCorrecte));
+                optionsContainer.appendChild(button);
+            });
+
+            feedbackElement.textContent = "";
+            nextButton.disabled = true;
+            startTimer();
+        } else {
+            questionElement.textContent = "🎉 Félicitations ! Vous avez terminé le quiz !";
+            optionsContainer.innerHTML = "";
+            nextButton.style.display = "none";
+        }
+    }
+
+    // Vérifier la réponse
+    function checkAnswer(selected, correct) {
+        clearInterval(timer);
+
+        if (selected === correct) {
+            feedbackElement.textContent = "✅ Bonne réponse ! 🎉";
+            encouragementElement.textContent = "Bravo, continue comme ça ! 💪";
+        } else {
+            feedbackElement.textContent = "❌ Mauvaise réponse... Essayez encore ! 🙁";
+            encouragementElement.textContent = "Ne te décourage pas, tu peux réussir ! 🌟";
+        }
+
+        nextButton.disabled = false;
+    }
+
+    // Gérer le chronomètre
+    function startTimer() {
+        timeLeft = 15;
+        timer = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                feedbackElement.textContent = "⏰ Temps écoulé ! ❌";
+                nextButton.disabled = false;
+            } else {
+                timerElement.textContent = timeLeft;
+                timeLeft--;
+            }
+        }, 1000);
+    }
+
+    // Passer à la question suivante
+    nextButton.addEventListener("click", () => {
+        currentQuestionIndex++;
+        showQuestion();
+    });
+
+    // Charger les questions au démarrage
+    loadQuestions();
+;

@@ -10,7 +10,6 @@ $conn=new PDO("pgsql:host=$host;dbname=$bdd",$user,$mdp);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //echo"connexion établie";
 } catch(PDOException $e){
-echo"Impossible de se connecter à la base de données!!";
-
+echo"$e";
 }
 ?>

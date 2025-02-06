@@ -1,3 +1,13 @@
+<?php
+// Démarrer la session
+session_start();
+
+// Inclure la connexion à la base de données
+include('connexion_db.php');
+
+// Initialiser les messages d'erreur ou de succès
+$message = "";
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -46,7 +56,7 @@
             <label for="name">Question</label>
             <input type="text" required>
             <br><br>
-            <button type="submit" onclick="loadQuestions()">Envoyer</button>
+            <button type="submit">Envoyer</button>
             <button type="button" onclick="closeForm()">Fermer</button>
         </form>
     </div>

@@ -1,33 +1,76 @@
-<?php
+Page : connexion.php                                                                                                                                                                                <?php
 session_start();
+global $conn;
 include('connexion_db.php'); // Connexion à la base de données
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']); // Éviter les espaces
+    $password = $_POST['password']; // Mot de passe saisi
+
+    // Log de l'email
+    error_log("Tentative de connexion avec l'email : " . $email);
 
     try {
-        // Rechercher l'utilisateur dans la base de données
-        $query = "SELECT * FROM utilisateurs WHERE email = :email";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Vérifier si l'email existe dans la table "connexion"
+        $query = $conn->prepare("SELECT * FROM connexion WHERE emailconnexion = :email");
+        $query->execute(['email' => $email]);
+        $user = $query->fetch(PDO::FETCH_ASSOC);
 
-        // Vérification du mot de passe
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id']; // Stocker l'ID utilisateur en session
-            $_SESSION['email'] = $user['email'];
-            header("Location: accueil.php"); // Redirection après connexion
-            exit();
+        if ($user) {
+            // Log si l'utilisateur existe
+            error_log("Utilisateur trouvé dans la table connexion.");
+
+            // Vérification du mot de passe
+            if (password_verify($password, $user['motdepasse'])) {
+                // Log pour vérifier le mot de passe
+                error_log("Mot de passe vérifié avec succès pour l'email : " . $email);
+
+                // Vérification du rôle et recherche dans la table correspondante
+                if ($user['iddemandeur']) {
+                    // L'utilisateur est un demandeur
+                    $_SESSION['user_id'] = $user['iddemandeur'];
+                    $_SESSION['email'] = $user['emailconnexion'];
+                    $_SESSION['role'] = 'demandeur';
+                    $_SESSION['username'] = $user['iddemandeur']; // À adapter si nécessaire
+
+                    // Redirection vers l'interface demandeur
+                    error_log("Redirection vers l'interface demandeur.");
+                    header("Location: jeu.php");
+                    exit();
+                } elseif ($user['identreprise']) {
+                    // L'utilisateur est une entreprise
+                    $_SESSION['user_id'] = $user['identreprise'];
+                    $_SESSION['email'] = $user['emailconnexion'];
+                    $_SESSION['role'] = 'entreprise';
+                    $_SESSION['username'] = $user['identreprise']; // À adapter si nécessaire
+
+                    // Redirection vers l'interface entreprise
+                    error_log("Redirection vers l'interface entreprise.");
+                    header("Location: interface_entreprise.php");
+                    exit();
+                } else {
+                    // Aucun rôle trouvé pour cet utilisateur
+                    error_log("Aucun rôle trouvé pour cet utilisateur.");
+                    echo "<script>alert('Aucun rôle trouvé pour cet email.');</script>";
+                }
+            } else {
+                // Mot de passe incorrect
+                error_log("Mot de passe incorrect pour l'email : " . $email);
+                echo "<script>alert('Mot de passe incorrect.');</script>";
+            }
         } else {
-            $error = "Email ou mot de passe incorrect.";
+            // Email non trouvé
+            error_log("Email non trouvé dans la base de données : " . $email);
+            echo "<script>alert('Email non trouvé.');</script>";
         }
-    } catch (PDOException $e) {
-        $error = "Erreur lors de la connexion : " . $e->getMessage();
+    } catch (Exception $e) {
+        // Log d'erreur pour attraper les exceptions
+        error_log("Erreur rencontrée : " . $e->getMessage());
+        echo "<script>alert('Erreur : " . $e->getMessage() . "');</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
