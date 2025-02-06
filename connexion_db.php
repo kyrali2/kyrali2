@@ -14,12 +14,3 @@ echo"Impossible de se connecter à la base de données!!";
 
 }
 ?>
-/***** POUR CONNECTER VOTRE PAGE à la  base  */
-// Démarrer la session
-session_start();
-
-// Inclure la connexion à la base de données
-include('connexion_db.php');
-
-// Initialiser les messages
-$message = "";
