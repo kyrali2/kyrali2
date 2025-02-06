@@ -91,9 +91,6 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <p>© JamR 2025 MonApp. Tous droits réservés.</p>
-  </footer>
 
   <script>
     window.onload = function() {
@@ -123,6 +120,8 @@
       }
     }
   </script>
+
+  
   
 
 </body>
