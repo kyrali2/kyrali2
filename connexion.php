@@ -46,13 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         error_log("Aucun demandeur trouvé pour ID: " . $user['iddemandeur']);
                     }
                 } elseif ($user['typeutilisateur'] === 'entreprise') {
-                    $_SESSION['user_id'] = $user['idconnexion'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['role'] = 'entreprise';
+                  $queryEntreprise = $conn->prepare("SELECT * FROM entreprise WHERE identreprise = :identreprise");
+                  $queryEntreprise->execute(['identreprise' => $user['identreprise']]);
+                  $entreprise = $queryEntreprise->fetch(PDO::FETCH_ASSOC);
 
-                    error_log("Redirection vers interface_entreprise.php");
-                    header("Location: interface_entreprise.php");
-                    exit();
+                  if ($entreprise) {
+                      $_SESSION['user_id'] = $entreprise['identreprise'];
+                      $_SESSION['email'] = $entreprise['emailentreprise'];
+                      $_SESSION['role'] = 'entreprise';
+                      $_SESSION['niveau'] = $entreprise['niveau'];
+                      error_log("Redirection vers accueil_entreprise.php");
+                      header("Location: accueil_entreprise.php");
+                      exit();
+                  } else {
+                      error_log("Aucune entreprise trouvée pour ID: " . $user['identreprise']);
+                  }
                 } else {
                     error_log("Type d'utilisateur inconnu: " . $user['typeutilisateur']);
                 }

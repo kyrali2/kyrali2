@@ -11,11 +11,11 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     try {
         if ($role === 'entreprise') {
             // Récupérer le nom de l'entreprise
-            $query = $conn->prepare("SELECT nomEntreprise FROM Entreprise WHERE idEntreprise = :idEntreprise");
+            $query = $conn->prepare("SELECT nomentreprise FROM entreprise WHERE idEntreprise = :idEntreprise");
             $query->execute(['idEntreprise' => $user_id]);
             $entreprise = $query->fetch(PDO::FETCH_ASSOC);
             if ($entreprise) {
-                $username = $entreprise['nomEntreprise'];
+                $username = $entreprise['nomentreprise'];
             }
         } elseif ($role === 'demandeur') {
             // Si nécessaire, récupérer le nom du demandeur
@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 <body>
     <header class="header">
         <div class="logo">MonApp</div>
-        <a href="acceueil.php" style="color: white; font-size: 40px; text-decoration: none; padding: 10px;" class="btn-return">
+        <a href="profilEntreprise.php" style="color: white; font-size: 40px; text-decoration: none; padding: 10px;" class="btn-return">
     <i class="fas fa-user"></i>
    </a>
     </header>
