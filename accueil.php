@@ -13,8 +13,6 @@
     <div class="logo">JobQuest</div>
     <nav>
       <a href="accueil.php">Accueil</a>
-      <a href="#">À propos</a>
-      <a href="#">Contact</a>
     </nav>
     <button class="cta-button"><a href="connexion.php">Se connecter</a></button>
     

@@ -43,7 +43,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 </head>
 <body>
     <header class="header">
-        <div class="logo">MonApp</div>
+        <div class="logo">JobQuest</div>
         <a href="profilEntreprise.php" style="color: white; font-size: 40px; text-decoration: none; padding: 10px;" class="btn-return">
     <i class="fas fa-user"></i>
    </a>
@@ -52,11 +52,11 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
         <div class="welcome-container">
             <h1>Bienvenue, <?php echo htmlspecialchars($username); ?>!</h1>
             <div class="button-container">
-    <button class="btn" onclick="window.location.href='interface_entreprise.php'">
-     Jouez
+    <button class="btn" onclick="window.location.href='question_entreprise.php'">
+    🚀 Jouez
     </button>
-    <button class="btn" onclick="window.location.href='liste.php'">
-    Liste candidats
+    <button class="btn" onclick="window.location.href='liste_demandeur.php'">
+    🏅 Top 5 des meilleurs joueuers
     </button>
             </div>
         </div>

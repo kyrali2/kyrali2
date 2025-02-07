@@ -10,7 +10,7 @@ include('connexion_db.php');
 $message = "";
 
 // TEMPORAIRE : Met un ID fixe pour tester sans connexion
-$idEntreprise = 1; // Remplace par un ID existant dans ta base de données
+$idEntreprise = $_SESSION['user_id']; // Remplace par un ID existant dans ta base de données
 
 // Récupérer les infos du profil
 $query = $conn->prepare("SELECT * FROM profilentreprise WHERE identreprise = :idEntreprise");
@@ -22,16 +22,18 @@ $profil = $query->fetch(PDO::FETCH_ASSOC) ?: ["descriptionentreprise" => ""];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
    
-
-
     $update = $conn->prepare("UPDATE profilentreprise SET
-                              descriptionentreprise = ?,
-                             
+                              descriptionentreprise = ?
                               WHERE identreprise = ?");
     $update->execute([$description,  $idEntreprise]);
 
-
-    header("Location: profil.php");
+    if ($update->rowCount() == 0) {
+        // Aucune ligne mise à jour, donc on insère une nouvelle ligne
+        $insert = $conn->prepare("INSERT INTO profilentreprise (identreprise,descriprionentreprise) 
+                                    VALUES (?, ?, ?, ?)");
+        $insert->execute([$idDemandeur, $description, $experience_pro, $experience_perso]);
+    }
+    header("Location: profilEntreprise.php");
     exit();
 }
 ?>

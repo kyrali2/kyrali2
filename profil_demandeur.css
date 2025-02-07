@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+
+
+body {
+  background-color: #121212;
+  color: white;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Conteneur principal */
+.profil-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: linear-gradient(145deg, #1e1e1e, #292929);
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px #000000, -5px -5px 15px #333;
+}
+
+
+/* Titre principal */
+h1 {
+  font-size: 28px;
+  color: #ffd700; /* Or */
+  text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.8);
+}
+
+
+/* Informations du profil */
+.profil-info p {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  transition: transform 0.3s;
+}
+
+
+.profil-info p:hover {
+  transform: scale(1.05);
+}
+
+
+/* Liste des projets */
+.projets-list {
+  list-style: none;
+  padding: 0;
+}
+
+
+.projets-list li {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+
+.projets-list li:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: scale(1.03);
+}
+
+
+/* Bouton retour */
+.btn-back {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #ffd700;
+  color: #121212;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+
+.btn-back:hover {
+  background: #ffc300;
+  transform: scale(1.1);
+}

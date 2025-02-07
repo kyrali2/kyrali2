@@ -29,6 +29,17 @@ try {
     // Gérer les erreurs si la requête échoue
     $question = "Erreur lors de la récupération de la question.";
 }
+// Récupérer le nombre de projets du demandeur
+$stmCountProjets = $conn->prepare("SELECT CountProjetsDemandeur(:idDemandeur) AS total_projets");
+$stmCountProjets->bindParam(':idDemandeur', $idDemandeur, PDO::PARAM_INT);
+$stmCountProjets->execute();
+$nbProjets = $stmCountProjets->fetch(PDO::FETCH_ASSOC)['total_projets'] ?? 0;
+
+// Récupérer le niveau du demandeur
+$stmNiveau = $conn->prepare("SELECT GetNiveauDemandeur(:idDemandeur) AS niveau");
+$stmNiveau->bindParam(':idDemandeur', $idDemandeur, PDO::PARAM_INT);
+$stmNiveau->execute();
+$niveau = $stmNiveau->fetch(PDO::FETCH_ASSOC)['niveau'] ?? 0;
 
 // Requête pour récupérer les réponses associées à cette question
 $query_answers = "SELECT r.reponse1, r.reponse2, r.reponse3, r.reponse4 FROM reponse r,question q WHERE q.idquestion = :idquestion AND q.choix=r.idreponse";
