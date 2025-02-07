@@ -215,18 +215,6 @@ function fetchRandomQuestion() {
     let currentQuestionIndex = 0;
     let questions = []; // Questions récupérées depuis le serveur
 
-    // Charger les questions depuis le serveur
-    function loadQuestions() {
-        fetch("get_questions.php")
-            .then((response) => response.json())
-            .then((data) => {
-                questions = data;
-                showQuestion();
-            })
-            .catch((error) => console.error("Erreur lors du chargement des questions :", error));
-        console.log("Salut");
-        }
-
     // Afficher une question
     function showQuestion() {
         if (currentQuestionIndex < questions.length) {
@@ -295,12 +283,3 @@ function fetchRandomQuestion() {
             console.error('Erreur:', error);
         });
     }
-    // Passer à la question suivante
-    nextButton.addEventListener("click", () => {
-        currentQuestionIndex++;
-        showQuestion();
-    });
-
-    // Charger les questions au démarrage
-    loadQuestions();
-;

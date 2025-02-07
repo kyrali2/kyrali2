@@ -61,6 +61,7 @@ $r = $rep['reponsecorrecte'];
         <div class="transition-zone" id="zone2"></div>
         
     </div>
+    <div id="question-level">Niveau :</div>
     <div id="question-zone"></div>
     <div id="text-question">Questions</div>
     <div id="exp-zone"></div>

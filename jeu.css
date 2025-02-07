@@ -9,7 +9,6 @@ body {
     width: 100vw;
     height: 100vh;
     position: relative;
-    background: url('background1.png') no-repeat center center/cover; /* Première scène */
 }
 #question-zone {
     width: 500px;               /* Largeur du demi-cercle */
@@ -121,14 +120,14 @@ body {
     position: absolute;
     color: black;
     top : 5%;
-    left : 42%;
+    left : 46%;
 }
 #text-exp {
     font-size: 30px;
     position: absolute;
     color: white;
     top : 95%;
-    left : 42%;
+    left : 46%;
 }
 #form-container-exp {
     position: absolute;
@@ -192,4 +191,12 @@ form button[type="button"] {
 
 .answer-btn.selected {
     background-color: #3e8e41; /* Couleur différente quand la réponse est sélectionnée */
+}
+
+#question-level {
+    font-size: 30px;
+    position: absolute;
+    color: black;
+    top : 0%;
+    left : 0%;
 }
