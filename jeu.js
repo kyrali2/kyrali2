@@ -283,3 +283,7 @@ function fetchRandomQuestion() {
             console.error('Erreur:', error);
         });
     }
+    function goToProfile() {
+        window.location.href = "profil.php"; // Redirection vers la page du profil
+      }
+      

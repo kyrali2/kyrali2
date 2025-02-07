@@ -12,7 +12,7 @@ $message = "";
 
 
 // TEMPORAIRE : Met un ID fixe pour tester sans connexion
-$idDemandeur = 1; // Remplace par un ID existant dans ta base de données
+$idDemandeur = $_SESSION['user_id']; // Remplace par un ID existant dans ta base de données
 
 
 // Récupérer les infos du profil
@@ -25,13 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $experience_pro = $_POST['experience_pro'];
     $experience_perso = $_POST['experience_perso'];
 
-    $update = $conn->prepare("UPDATE Profildemandeur SET 
+    $update = $conn->prepare("UPDATE profildemandeur SET 
                               descriptiondemandeur = ?, 
                               experienceprofessionnelle = ?, 
                               experiencepersonnelle = ?
                               WHERE iddemandeur = ?");
     $update->execute([$description, $experience_pro, $experience_perso, $idDemandeur]);
-
+    if ($update->rowCount() == 0) {
+        // Aucune ligne mise à jour, donc on insère une nouvelle ligne
+        $insert = $conn->prepare("INSERT INTO profildemandeur (iddemandeur, descriptiondemandeur, experienceprofessionnelle, experiencepersonnelle) 
+                                    VALUES (?, ?, ?, ?)");
+        $insert->execute([$idDemandeur, $description, $experience_pro, $experience_perso]);
+    }
     header("Location: profil.php");
     exit();
 }
@@ -48,13 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Modifier mon profil</h1>
     <form method="POST">
-        <label>Description :</label>
+        <label id="affich">Description :</label>
         <textarea name="description"><?php echo htmlspecialchars($profil['descriptiondemandeur']); ?></textarea>
 
-        <label>Expérience Professionnelle :</label>
+        <label id="affich">Expérience Professionnelle :</label>
         <textarea name="experience_pro"><?php echo htmlspecialchars($profil['experienceprofessionnelle']); ?></textarea>
 
-        <label>Expérience Personnelle :</label>
+        <label id="affich">Expérience Personnelle :</label>
         <textarea name="experience_perso"><?php echo htmlspecialchars($profil['experiencepersonnelle']); ?></textarea>
 
         <button type="submit">Enregistrer</button>

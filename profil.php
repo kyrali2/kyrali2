@@ -12,7 +12,7 @@ $message = "";
 
 
 // TEMPORAIRE : Met un ID fixe pour tester sans connexion
-$idDemandeur = 1; // Remplace par un ID existant dans ta base de données
+$idDemandeur = $_SESSION['user_id']; // Remplace par un ID existant dans ta base de données
 
 // Appeler la fonction pour récupérer les projets
 
@@ -40,7 +40,7 @@ if (!$demandeur) {
 // Récupérer le profil
 $query = $conn->prepare("SELECT * FROM ProfilDemandeur WHERE idDemandeur = ?");
 $query->execute([$idDemandeur]);
-$profil = $query->fetch(PDO::FETCH_ASSOC) ?: ["DescriptionDemandeur" => "", "ExperienceProfessionnelle" => "", "ExperiencePersonnelle" => ""];
+$profil = $query->fetch(PDO::FETCH_ASSOC) ?: ["descriptiondemandeur" => "", "experienceprofessionnelle" => "", "experiencepersonnelle" => ""];
 
 // Récupérer le nombre de projets du demandeur
 $stmCountProjets = $conn->prepare("SELECT CountProjetsDemandeur(:idDemandeur) AS total_projets");
@@ -69,17 +69,21 @@ $niveau = $stmNiveau->fetch(PDO::FETCH_ASSOC)['niveau'] ?? 0;
 <body>
 
 <div class="profile-container">
+    
     <div class="profile-card">
-    <h1>👤 Bienvenue, <?php echo htmlspecialchars($demandeur['prenom']); ?> !</h1>
+        <h1>👤 Bienvenue, <?php echo htmlspecialchars($demandeur['prenom']); ?> !</h1>
 
-    <div class="badges">
-    <div class="badge gold">
+        <div class="badge">
+        <div class="badge gold">
         ⭐ <span><?php echo htmlspecialchars($nbProjets); ?> -- Quêtes accomplies ! Continue ton aventure !</span> 
     </div>
+    
     <div class="badge silver">
         🌟 <span><?php echo htmlspecialchars($niveau); ?> -- Niveau du héros ! Deviens une légende !</span> 
-    </div>
+    </div> 
 </div>
+   
+    
 
         <p><strong>Nom :</strong> <?php echo htmlspecialchars($demandeur['nom']); ?></p>
         <p><strong>Prénom :</strong> <?php echo htmlspecialchars($demandeur['prenom']); ?></p>

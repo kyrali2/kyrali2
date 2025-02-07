@@ -11,7 +11,7 @@ $message = "";
 
 
 // TEMPORAIRE : Met un ID fixe pour tester sans connexion
-$idDemandeur = 1; 
+$idDemandeur = $_SESSION['user_id']; 
 
 // Récupérer idProfil du demandeur connecté
 $stmt = $conn->prepare("SELECT idProfil FROM ProfilDemandeur WHERE idDemandeur = :idDemandeur");
@@ -61,19 +61,19 @@ $stmt->execute();
 <body>
     <h1>Ajouter un projet</h1>
     <form method="POST">
-        <label>Type de Projet :</label>
+        <label id="affich">Type de Projet :</label>
         <input type="text" name="typeprojet" required>
 
-        <label>Description :</label>
+        <label id="affich">Description :</label>
         <textarea name="descriptionprojet" required></textarea>
 
-        <label>Date de Début :</label>
+        <label id="affich">Date de Début :</label>
         <input type="date" name="datedebut" required>
 
-        <label>Date de Fin :</label>
+        <label id="affich">Date de Fin :</label>
         <input type="date" name="datefin">
 
-        <label>Lien du Projet :</label>
+        <label id="affich">Lien du Projet :</label>
         <input type="url" name="lienprojet">
 
         <button type="submit">Ajouter</button>

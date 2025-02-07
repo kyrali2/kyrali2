@@ -116,13 +116,9 @@ $r = $rep['reponsecorrecte'];
     </div>
     <div id="form-container-exp" style="display: none;">
         <form id="myForm">
-            <label for="name">Nom</label>
-            <input type="text" required>
+            <label for="name">Allons visiter ton profil</label>
             <br><br>
-            <label for="email">Description</label>
-            <input type="email" required>
-            <br><br>
-            <button type="submit">Envoyer</button>
+            <button type="button" onclick="goToProfile()">Let's GO 🚀</button>
             <button type="button" onclick="closeForm()">Fermer</button>
         </form>
     </div>
