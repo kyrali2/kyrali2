@@ -1,14 +1,12 @@
 <?php
 // Démarrer la session
 session_start();
-
 // Inclure la connexion à la base de données
 include('connexion_db.php');
-
 // Initialiser les messages d'erreur ou de succès
 $message = "";
-$idDemandeur = 1;
-$niveauDemandeur = 1;
+$idDemandeur = $_SESSION['user_id'];
+$niveauDemandeur = $_SESSION['niveau'];
 // Requête pour récupérer la question
 $query = "SELECT question, idquestion FROM question q,domaine o,demandeuremploi e WHERE q.domaine_id=o.iddomaine AND o.iddomaine=e.domaine_id AND e.iddemandeur = :iddemandeur AND q.niveau_id=:niveau ORDER BY RANDOM() LIMIT 1"; // Sélectionne une question aléatoire
 $stmt = $conn->prepare($query);

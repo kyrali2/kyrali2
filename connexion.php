@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_SESSION['email'] = $demandeur['emaildemandeur'];
                         $_SESSION['role'] = 'demandeur';
                         $_SESSION['username'] = $demandeur['prenom'] . " " . $demandeur['nom'];
-
+                        $_SESSION['niveau'] = $demandeur['niveau'];
                         error_log("Redirection vers jeu.html");
                         header("Location: jeu.php");
                         exit();

@@ -256,13 +256,11 @@ function fetchRandomQuestion() {
         clearInterval(timer);
         if (selected === correct) {
             alert("✅ Bonne réponse ! 🎉");
-            //alert("Bravo, continue comme ça ! 💪");
-        } else {
+            updatePlayerLevel();
+         } else {
             alert("❌ Mauvaise réponse... Essayez encore ! 🙁");
             //encouragementElement.textContent = "Ne te décourage pas, tu peux réussir ! 🌟";
         }
-
-        nextButton.disabled = false;
     }
 
     // Gérer le chronomètre
@@ -280,6 +278,23 @@ function fetchRandomQuestion() {
         }, 1000);
     }
 
+    function updatePlayerLevel() {
+        // On envoie la mise à jour du niveau avec une requête AJAX
+        fetch('update_level.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=updateLevel'
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Affiche la réponse du serveur (success/failure)
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+        });
+    }
     // Passer à la question suivante
     nextButton.addEventListener("click", () => {
         currentQuestionIndex++;
