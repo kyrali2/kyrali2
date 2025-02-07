@@ -286,4 +286,8 @@ function fetchRandomQuestion() {
     function goToProfile() {
         window.location.href = "profil.php"; // Redirection vers la page du profil
       }
+
+      function openEntretien(){
+        window.location.href = "entretien.php";
+      }
       

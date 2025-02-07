@@ -77,15 +77,9 @@ $r = $rep['reponsecorrecte'];
 
     <div id="form-container" style="display: none;">
         <form id="myForm">
-            <label for="name">Nom de poste</label>
-            <input type="text" id="name" name="name" required>
+            <label for="name">Entreprise</label>
             <br><br>
-            <label for="email">CV</label>
-            <input type="email" id="email" name="email" required>
-            <br><br>
-            <label>Lettre de motivation</label>
-            <input type ="text">
-            <button type="submit">Envoyer</button>
+            <button type="button" onclick=openEntretien()>Aller à l'entretien</button>
             <button type="button" onclick="closeForm()">Fermer</button>
         </form>
     </div>

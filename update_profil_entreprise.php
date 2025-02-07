@@ -13,8 +13,9 @@ $message = "";
 $idEntreprise = 1; // Remplace par un ID existant dans ta base de données
 
 // Récupérer les infos du profil
-$query = $conn->prepare("SELECT * FROM profilentreprise WHERE identreprise = ?");
-$query->execute([$idEntreprise]);
+$query = $conn->prepare("SELECT * FROM profilentreprise WHERE identreprise = :idEntreprise");
+$query->bindParam(':idEntreprise', $idEntreprise);
+$query->execute();
 $profil = $query->fetch(PDO::FETCH_ASSOC) ?: ["descriptionentreprise" => ""];
 
 
