@@ -3,33 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MonApp - Accueil</title>
+  <title>JobQuest - Accueil</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header class="header">
-    <div class="logo">MonApp</div>
+    <div class="logo">JobQuest</div>
     <nav>
-      <a href="accueil.html">Accueil</a>
+      <a href="accueil.php">Accueil</a>
       <a href="#">À propos</a>
       <a href="#">Contact</a>
     </nav>
-    <button class="cta-button"><a href="connexion.html">Se connecter</a></button>
+    <button class="cta-button"><a href="connexion.php">Se connecter</a></button>
     
   </header>
 
   <main class="main-content">
     <section class="hero">
-      <h1>Boostez votre carrière avec MonApp</h1>
+      <h1>Boostez votre carrière avec JobQuest</h1>
       <p>Montez en compétences, trouvez des opportunités, et connectez-vous avec des entreprises éthiques.</p>
       <div class="buttons">
-        <!-- Lien vers l'inscription du Candidat -->
-        <a href="inscription.html?role=candidat" class="primary-button">Je cherche un emploi</a>
-
-        <!-- Lien vers l'inscription de l'Entreprise -->
-        <a href="inscription.html?role=entreprise" class="secondary-button">Je suis une entreprise</a>
+        <a href="inscription_demandeur.php" class="primary-button">Je cherche un emploi</a>
+        <a href="inscription_entreprise.php" class="secondary-button">Je suis une entreprise</a>
       </div>
     </section>
 

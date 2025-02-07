@@ -1,75 +1,85 @@
-Page : connexion.php                                                                                                                                                                                <?php
+<?php 
 session_start();
-global $conn;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include('connexion_db.php'); // Connexion à la base de données
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email']); // Éviter les espaces
-    $password = $_POST['password']; // Mot de passe saisi
+// Vérifier la connexion à la base
+if (!$conn) {
+    die("Erreur de connexion à la base de données");
+}
 
-    // Log de l'email
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo "Le script est bien exécuté <br>";
+
+    var_dump($_POST); // Vérifie les données envoyées par le formulaire
+
+    $email = trim($_POST['email']); 
+    $password = $_POST['password'];
+
     error_log("Tentative de connexion avec l'email : " . $email);
+    echo "Tentative de connexion avec l'email : " . htmlspecialchars($email) . "<br>";
 
     try {
-        // Vérifier si l'email existe dans la table "connexion"
-        $query = $conn->prepare("SELECT * FROM connexion WHERE emailconnexion = :email");
+        // Vérifier si l'email existe dans la table connexion
+        $query = $conn->prepare("SELECT * FROM connexion WHERE email = :email");
         $query->execute(['email' => $email]);
         $user = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            // Log si l'utilisateur existe
-            error_log("Utilisateur trouvé dans la table connexion.");
+            echo "Utilisateur trouvé : " . htmlspecialchars($user['idconnexion']) . "<br>";
+            error_log("Utilisateur trouvé avec ID: " . $user['idconnexion']);
 
-            // Vérification du mot de passe
-            if (password_verify($password, $user['motdepasse'])) {
-                // Log pour vérifier le mot de passe
-                error_log("Mot de passe vérifié avec succès pour l'email : " . $email);
+            if ($password === $user['motdepasse']) {
+                echo "Mot de passe valide.<br>";
+                error_log("Mot de passe valide.");
 
-                // Vérification du rôle et recherche dans la table correspondante
-                if ($user['iddemandeur']) {
-                    // L'utilisateur est un demandeur
-                    $_SESSION['user_id'] = $user['iddemandeur'];
-                    $_SESSION['email'] = $user['emailconnexion'];
-                    $_SESSION['role'] = 'demandeur';
-                    $_SESSION['username'] = $user['iddemandeur']; // À adapter si nécessaire
+                // Vérifier si c'est un demandeur
+                if ($user['typeutilisateur'] === 'candidat') {
+                    echo "L'utilisateur est un candidat.<br>";
 
-                    // Redirection vers l'interface demandeur
-                    error_log("Redirection vers l'interface demandeur.");
-                    header("Location: jeu.php");
-                    exit();
-                } elseif ($user['identreprise']) {
-                    // L'utilisateur est une entreprise
-                    $_SESSION['user_id'] = $user['identreprise'];
-                    $_SESSION['email'] = $user['emailconnexion'];
-                    $_SESSION['role'] = 'entreprise';
-                    $_SESSION['username'] = $user['identreprise']; // À adapter si nécessaire
+                    $queryDemandeur = $conn->prepare("SELECT * FROM demandeuremploi WHERE iddemandeur = :iddemandeur");
+                    $queryDemandeur->execute(['iddemandeur' => $user['iddemandeur']]);
+                    $demandeur = $queryDemandeur->fetch(PDO::FETCH_ASSOC);
 
-                    // Redirection vers l'interface entreprise
-                    error_log("Redirection vers l'interface entreprise.");
-                    header("Location: interface_entreprise.php");
-                    exit();
+                    if ($demandeur) {
+                        echo "Demandeur trouvé : " . htmlspecialchars($demandeur['iddemandeur']) . "<br>";
+                        $_SESSION['user_id'] = $demandeur['iddemandeur'];
+                        $_SESSION['email'] = $demandeur['emaildemandeur'];
+                        $_SESSION['role'] = 'demandeur';
+                        $_SESSION['username'] = $demandeur['prenom'] . " " . $demandeur['nom'];
+
+                        error_log("Redirection vers jeu.html");
+                        header("Location: jeu.html");
+                        exit();
+                    } else {
+                        echo "Aucun demandeur trouvé pour ID: " . htmlspecialchars($user['iddemandeur']) . "<br>";
+                        error_log("Aucun demandeur trouvé pour ID: " . $user['iddemandeur']);
+                    }
                 } else {
-                    // Aucun rôle trouvé pour cet utilisateur
-                    error_log("Aucun rôle trouvé pour cet utilisateur.");
-                    echo "<script>alert('Aucun rôle trouvé pour cet email.');</script>";
+                    echo "Type d'utilisateur inconnu : " . htmlspecialchars($user['typeutilisateur']) . "<br>";
+                    error_log("Type d'utilisateur inconnu: " . $user['typeutilisateur']);
                 }
             } else {
-                // Mot de passe incorrect
-                error_log("Mot de passe incorrect pour l'email : " . $email);
-                echo "<script>alert('Mot de passe incorrect.');</script>";
+                echo "Mot de passe incorrect.<br>";
+                error_log("Mot de passe incorrect.");
             }
         } else {
-            // Email non trouvé
-            error_log("Email non trouvé dans la base de données : " . $email);
-            echo "<script>alert('Email non trouvé.');</script>";
+            echo "Utilisateur non trouvé avec cet email.<br>";
+            error_log("Utilisateur non trouvé avec email: " . $email);
         }
     } catch (Exception $e) {
-        // Log d'erreur pour attraper les exceptions
-        error_log("Erreur rencontrée : " . $e->getMessage());
-        echo "<script>alert('Erreur : " . $e->getMessage() . "');</script>";
+        echo "Erreur SQL : " . $e->getMessage() . "<br>";
+        error_log("Erreur SQL : " . $e->getMessage());
     }
 }
 ?>
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -77,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MonApp - Connexion</title>
+  <title>JobQuest - Connexion</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -85,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <!-- Header -->
   <header class="header">
-    <div class="logo">MonApp</div>
+    <div class="logo">JobQuest</div>
     <nav>
       <a href="accueil.php">Accueil</a>
       <a href="#">À propos</a>
@@ -110,14 +120,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Se connecter</button>
       </form>
 
-      <div class="glass-links">
-        <a href="accueil.php">Retour à l'accueil</a>
-      </div>
+      
     </div>
   </main>
 
   <footer class="footer">
-    <p>© JamR 2025 MonApp. Tous droits réservés.</p>
+    <p>© JamR 2025 JobQuest. Tous droits réservés.</p>
   </footer>
 
 </body>
