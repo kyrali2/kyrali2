@@ -1,26 +1,12 @@
 <?php 
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include('connexion_db.php'); // Connexion à la base de données
 
-// Vérifier la connexion à la base
-if (!$conn) {
-    die("Erreur de connexion à la base de données");
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "Le script est bien exécuté <br>";
-
-    var_dump($_POST); // Vérifie les données envoyées par le formulaire
-
     $email = trim($_POST['email']); 
     $password = $_POST['password'];
 
     error_log("Tentative de connexion avec l'email : " . $email);
-    echo "Tentative de connexion avec l'email : " . htmlspecialchars($email) . "<br>";
 
     try {
         // Vérifier si l'email existe dans la table connexion
@@ -29,53 +15,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            echo "Utilisateur trouvé : " . htmlspecialchars($user['idconnexion']) . "<br>";
             error_log("Utilisateur trouvé avec ID: " . $user['idconnexion']);
 
-            if ($password === $user['motdepasse']) {
-                echo "Mot de passe valide.<br>";
-                error_log("Mot de passe valide.");
+            // Affichage des valeurs pour détecter les erreurs
+            var_dump("Mot de passe entré: " . $password);
+            var_dump("Mot de passe en base: " . $user['motdepasse']);
+            var_dump("Mot de passe entré en hex: " . bin2hex($password));
+            var_dump("Mot de passe en base en hex: " . bin2hex($user['motdepasse']));
 
+            // Vérification du mot de passe
+            if (password_verify($password, $user['motdepasse'])) {
+              error_log("Mot de passe valide.");
+          
                 // Vérifier si c'est un demandeur
                 if ($user['typeutilisateur'] === 'candidat') {
-                    echo "L'utilisateur est un candidat.<br>";
-
                     $queryDemandeur = $conn->prepare("SELECT * FROM demandeuremploi WHERE iddemandeur = :iddemandeur");
                     $queryDemandeur->execute(['iddemandeur' => $user['iddemandeur']]);
                     $demandeur = $queryDemandeur->fetch(PDO::FETCH_ASSOC);
 
                     if ($demandeur) {
-                        echo "Demandeur trouvé : " . htmlspecialchars($demandeur['iddemandeur']) . "<br>";
                         $_SESSION['user_id'] = $demandeur['iddemandeur'];
                         $_SESSION['email'] = $demandeur['emaildemandeur'];
                         $_SESSION['role'] = 'demandeur';
                         $_SESSION['username'] = $demandeur['prenom'] . " " . $demandeur['nom'];
 
                         error_log("Redirection vers jeu.html");
-                        header("Location: jeu.html");
+                        header("Location: jeu.php");
                         exit();
                     } else {
-                        echo "Aucun demandeur trouvé pour ID: " . htmlspecialchars($user['iddemandeur']) . "<br>";
                         error_log("Aucun demandeur trouvé pour ID: " . $user['iddemandeur']);
                     }
+                } elseif ($user['typeutilisateur'] === 'entreprise') {
+                    $_SESSION['user_id'] = $user['idconnexion'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['role'] = 'entreprise';
+
+                    error_log("Redirection vers interface_entreprise.php");
+                    header("Location: interface_entreprise.php");
+                    exit();
                 } else {
-                    echo "Type d'utilisateur inconnu : " . htmlspecialchars($user['typeutilisateur']) . "<br>";
                     error_log("Type d'utilisateur inconnu: " . $user['typeutilisateur']);
                 }
             } else {
-                echo "Mot de passe incorrect.<br>";
                 error_log("Mot de passe incorrect.");
             }
         } else {
-            echo "Utilisateur non trouvé avec cet email.<br>";
             error_log("Utilisateur non trouvé avec email: " . $email);
         }
     } catch (Exception $e) {
-        echo "Erreur SQL : " . $e->getMessage() . "<br>";
         error_log("Erreur SQL : " . $e->getMessage());
     }
 }
 ?>
+
 
 
 

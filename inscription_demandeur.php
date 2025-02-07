@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include('connexion_db.php');
 
@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $education = trim($_POST['education']);
     $domaine = trim($_POST['domaine']);
     $contractType = trim($_POST['contractType']);
-    $mdp = trim($_POST['mdp']);
     $password = password_hash($_POST['passwordCandidat'], PASSWORD_DEFAULT);
 
     try {
@@ -37,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idConnexion = $conn->lastInsertId();
 
             // Insérer dans la table `DemandeurEmploi`
-            $sqlDemandeur = "INSERT INTO DemandeurEmploi (nom, prenom, emailDemandeur, telephoneDemandeur, domaineetude, niveauEtude, typeContrat,motdepasse)
-                             VALUES (:nom, :prenom, :email, :telephone, :domaine, :education, :contractType,:mdp)";
+            $sqlDemandeur = "INSERT INTO DemandeurEmploi (nom, prenom, emailDemandeur, telephoneDemandeur, domaineetude, niveauEtude, typeContrat)
+                             VALUES (:nom, :prenom, :email, :telephone, :domaine, :education, :contractType)";
             $stmtDemandeur = $conn->prepare($sqlDemandeur);
             $stmtDemandeur->bindParam(':nom', $nom, PDO::PARAM_STR);
             $stmtDemandeur->bindParam(':prenom', $prenom, PDO::PARAM_STR);
@@ -47,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtDemandeur->bindParam(':domaine', $domaine, PDO::PARAM_STR);
             $stmtDemandeur->bindParam(':education', $education, PDO::PARAM_STR);
             $stmtDemandeur->bindParam(':contractType', $contractType, PDO::PARAM_STR);
-            $stmtDemandeur->bindParam(':mdp', $mdp, PDO::PARAM_STR);
             $stmtDemandeur->execute();
             $idDemandeur = $conn->lastInsertId();
 
@@ -104,8 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="emailCandidat">Email :</label>
                 <input type="email" name="emailCandidat" id="emailCandidat" required>
 
-                <label for="mdp">Mot de passe :</label>
-                <input type="password" name="mdp" id="mdp" required>
+                <label for="passwordCandidat">Mot de passe :</label>
+                <input type="password" name="passwordCandidat" id="passwordCandidat" required>
 
                 <label for="phone">Téléphone :</label>
                 <input type="tel" name="phone" id="phone" required>
