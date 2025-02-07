@@ -134,8 +134,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </main>
-    <footer class="footer">
-        <p>© JamR 2025 JobQuest. Tous droits réservés.</p>
-    </footer>
 </body>
 </html>

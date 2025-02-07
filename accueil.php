@@ -47,9 +47,6 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <p>© JamR 2025 MonApp. Tous droits réservés.</p>
-  </footer>
 
 </body>
 </html>
