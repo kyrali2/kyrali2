@@ -1,0 +1,106 @@
+/* =========================
+   🎮 STYLE GAMIFIÉ 🎮
+   ========================= */
+
+/* Importation de la police gaming */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* 🌌 Style général */
+body {
+  background: url("background-game.jpg") no-repeat center center/cover;
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🎭 Conteneur principal */
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px #ffcc00;
+}
+
+/* 🎮 TITRES */
+h1 {
+  font-size: 22px;
+  color: #ffcc00;
+  text-shadow: 2px 2px 5px #000;
+}
+
+h2 {
+  font-size: 18px;
+  color: #00ffcc;
+  text-shadow: 2px 2px 5px #000;
+}
+
+/* 🔲 Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+input,
+textarea,
+select {
+  width: 90%;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid #ffcc00;
+  background: #222;
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* 🎮 BOUTONS */
+button {
+  background: linear-gradient(45deg, #ffcc00, #ff6600);
+  color: #000;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #222;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 3px 3px 10px #ffcc00;
+}
+
+/* 🎮 TABLEAU DES PROJETS */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+th,
+td {
+  border: 2px solid #ffcc00;
+  padding: 10px;
+}
+
+th {
+  background: #ff6600;
+  color: #000;
+}
+
+/* 🕹️ Liens interactifs */
+a {
+  color: #00ffcc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  text-shadow: 0px 0px 10px #00ffcc;
+}

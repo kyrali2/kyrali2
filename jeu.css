@@ -13,7 +13,9 @@ body {
 #question-zone {
     width: 500px;               /* Largeur du demi-cercle */
     height: 500px;               /* Hauteur de la moitié du cercle */
-    background-color: red;      /* Couleur de fond rouge */
+    background-image : url(images/1_Generic_Black_Shadow_32x32.png);      /* Couleur de fond rouge */
+    background-size: 3700px;
+    background-position: -675px -4930px;
     border-radius: 50% 50% 50% 50%; /* Arrondir les coins supérieurs pour créer un demi-cercle */
     position: absolute; 
     left: 50%;
@@ -24,11 +26,13 @@ body {
 #exp-zone {
     width: 500px;               /* Largeur du demi-cercle */
     height: 500px;               /* Hauteur de la moitié du cercle */
-    background-color: black;      /* Couleur de fond rouge */
+    background-image : url(images/1_Generic_Black_Shadow_32x32.png);      /* Couleur de fond rouge */
+    background-size: 3700px;
+    background-position: -675px -5900px;
     border-radius: 50% 50% 50% 50%; /* Arrondir les coins supérieurs pour créer un demi-cercle */
     position: absolute; 
     left: 50%;
-    top: 75%;       
+    top: 80%;       
     transform: translateX(-50%); /* Centrer horizontalement */
 }
 
